@@ -1,4 +1,4 @@
-class Renderer {
+class Canvas {
   constructor() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext('2d');
@@ -24,9 +24,8 @@ class Renderer {
   addListeners() {
     window.addEventListener('resize', this.updateCanvasSize);
 
-
-    this.canvas.addEventListener("mousedown", this.handleMouseDown); // 드로잉 끝
-    this.canvas.addEventListener("mouseup", this.handleMouseUp); // 드로잉 대기
+    this.canvas.addEventListener("mousedown", this.handleMouseDown);
+    this.canvas.addEventListener("mouseup", this.handleMouseUp);
     this.canvas.addEventListener("mousemove", this.draw);
   }
 
@@ -59,6 +58,29 @@ class Renderer {
     this.ctx.beginPath();
     this.ctx.lineTo(x, y);
     this.ctx.stroke();  
+  }
+}
+
+class Renderer {
+  constructor() {
+    this.canvas = new Canvas();
+
+    this.lineWidthInput = document.getElementById('lineWidthInput');
+    this.lineWidthInput.value = this.canvas.lineWidth;
+    this.addBindings();
+    this.addListeners();
+  }
+  
+  addBindings() {
+    this.handleChangeLineWidth = this.handleChangeLineWidth.bind(this);
+  }
+
+  addListeners() {
+    this.lineWidthInput.addEventListener('change', this.handleChangeLineWidth);  
+  }
+
+  handleChangeLineWidth(e) {
+    this.canvas.lineWidth = e.target.value;
   }
 }
 

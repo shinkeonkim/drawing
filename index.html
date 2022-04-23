@@ -5,9 +5,15 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <title>Document</title>
+  <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+  <div class="row">
+    <canvas id="canvas"></canvas>
+    <div class="column">
+      <input type="range" min="1" max="50" name="lineWidth" id="lineWidthInput">
+    </div>
+  </div>
   <script src="./renderer.js"></script>
 </body>
 </html>
