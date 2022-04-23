@@ -1,0 +1,14 @@
+{
+  "name": "drawing",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/shinkeonkim/drawing.git",
+  "author": "shinkeonkim <singun11@kookmin.ac.kr>",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^18.1.0"
+  }
+}
