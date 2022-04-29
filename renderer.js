@@ -21,6 +21,7 @@ class Canvas {
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.clearAll = this.clearAll.bind(this);
     this.draw = this.draw.bind(this);
   }
 
@@ -58,6 +59,9 @@ class Canvas {
     this.lastX = e.offsetX;
     this.lastY = e.offsetY;
   }
+
+  clearAll() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   draw(e) {
@@ -78,6 +82,7 @@ class Renderer {
     this.canvas = new Canvas();
 
     this.lineWidthInput = document.getElementById('lineWidthInput');
+    this.clearAll = document.getElementById('clearAll');
     this.lineWidthInput.value = this.canvas.lineWidth;
     this.addBindings();
     this.addListeners();
@@ -85,14 +90,20 @@ class Renderer {
   
   addBindings() {
     this.handleChangeLineWidth = this.handleChangeLineWidth.bind(this);
+    this.handleClearAll = this.handleClearAll.bind(this);
   }
 
   addListeners() {
     this.lineWidthInput.addEventListener('change', this.handleChangeLineWidth);  
+    this.clearAll.addEventListener('click', this.handleClearAll);
   }
 
   handleChangeLineWidth(e) {
     this.canvas.lineWidth = e.target.value;
+  }
+
+  handleClearAll(e) {
+    this.canvas.clearAll();
   }
 }
 
