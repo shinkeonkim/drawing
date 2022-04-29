@@ -8,6 +8,8 @@ class Canvas {
     this.lineWidth = 30;
     this.strokeStyle = 'black';
     this.lineCap = 'round';
+    this.lastX = null;
+    this.lastY = null;
     
     this.addBindings();
     this.addListeners();
@@ -18,6 +20,7 @@ class Canvas {
     this.updateCanvasSize = this.updateCanvasSize.bind(this);
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
     this.draw = this.draw.bind(this);
   }
 
@@ -26,7 +29,7 @@ class Canvas {
 
     this.canvas.addEventListener("mousedown", this.handleMouseDown);
     this.canvas.addEventListener("mouseup", this.handleMouseUp);
-    this.canvas.addEventListener("mousemove", this.draw);
+    this.canvas.addEventListener("mousemove", this.handleMouseMove);
   }
 
   updateCanvasSize() {
@@ -45,6 +48,16 @@ class Canvas {
 
   handleMouseUp () {
     this.drawing = false;
+    this.lastX = null;
+    this.lastY = null;
+  }
+
+  handleMouseMove(e) {
+    this.draw(e);
+
+    this.lastX = e.offsetX;
+    this.lastY = e.offsetY;
+  }
   }
 
   draw(e) {
@@ -53,9 +66,8 @@ class Canvas {
 
     if (!this.drawing) return;
 
-
-    this.ctx.moveTo(x, y);
     this.ctx.beginPath();
+    this.ctx.moveTo(this.lastX || x, this.lastY || y);
     this.ctx.lineTo(x, y);
     this.ctx.stroke();  
   }
